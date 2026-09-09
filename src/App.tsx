@@ -9,8 +9,13 @@ import { useDebouncedValue } from "@/hooks/use-debounced-value"
 import { IMAGE_RIPPLE_DEFAULT_CONFIG } from "@/lib/image-ripple-settings"
 
 const THEME_CLEAR_COLORS = {
-  dark: "#252525",
+  dark: "#0a0a0a",
   light: "#ffffff",
+} as const
+
+const THEME_LOGOS = {
+  dark: "/ottr_logo-dark.png",
+  light: "/ottr_logo.png",
 } as const
 
 export function App() {
@@ -23,18 +28,19 @@ export function App() {
       window.matchMedia("(prefers-color-scheme: dark)").matches)
 
   const clearColor = isDark ? THEME_CLEAR_COLORS.dark : THEME_CLEAR_COLORS.light
+  const logoSrc = isDark ? THEME_LOGOS.dark : THEME_LOGOS.light
 
   const images = useMemo(
     () => [
       {
-        src: applied.imageSrc,
+        src: logoSrc,
         x: applied.imageX,
         y: applied.imageY,
         widthScale: applied.imageWidthScale,
         heightScale: applied.imageHeightScale,
       },
     ],
-    [applied]
+    [applied, logoSrc]
   )
 
   return (
